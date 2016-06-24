@@ -158,8 +158,8 @@ keystoreFile="[ARQUIVO_KEYSTORE]" keystorePass="[SENHA]" />
 * Para evitar problema de falta de memória durante a execução do DSpace, adicione ao arquivo `/usr/share/tomcat7/bin/setenv.sh` as seguintes linhas:
 
     ```bash
-    #!/bin/bash
-    export CATALINA_OPTS="$CATALINA_OPTS -Xms1024m -Xmx2g"
+#!/bin/bash
+export CATALINA_OPTS="$CATALINA_OPTS -Xms1024m -Xmx2g"
     ```
 
 ---

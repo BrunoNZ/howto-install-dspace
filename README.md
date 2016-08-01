@@ -201,11 +201,17 @@ export CATALINA_OPTS="$CATALINA_OPTS -Xms2048m -Xmx2g"
 
 ---
 
-## Usando o arquivo `Makefile`
+## Extras
 
-* Para agilizar os passos de compilação, instalação, atualização e deploy dos webapps foi criado um arquivo `Makefile`
+* Para agilizar os passos de criar o usuário e banco de dados no PostgreSQL, foi criado dois scripts `create_pqsl_user.sh` e `create_pqsl_db.sh` que executam, respectivamente, essas tarefas. Para executá-los utilize os comandos abaixo:
+```bash
+$ ./create_pqsl_user.sh [USER_NAME]
+$ ./create_psql_db.sh [USER_NAME] [DATABASE_NAME]
+```
 
-    * Primeiramente, baixe o arquivo e copie-o para o diretório [DIR_SRC].
+* Para agilizar os passos de compilação, instalação, atualização e deploy dos webapps foi criado um arquivo `Makefile`.
+
+    * Primeiramente, copie o arquivo `Makefile` para o diretório [DIR_SRC].
 
     * Depois abra-o para edição e altere os seguintes parâmetros:
 

@@ -106,45 +106,75 @@ db.password=[SENHA_USUARIO_BD]
 
 No usuário `dspace`:
 
-1. Antes da primeira execução do sistema, execute o seguinte comando para limpar arquivos temporários antigos e evitar erros:
+* Antes da primeira execução do sistema, execute o seguinte comando para limpar arquivos temporários antigos e evitar erros:
 ```bash
 $ mvn clean
 ```
 
-2. Compilar o sistema, executando o comando a seguir na raiz do codigo-fonte do projeto:
+* Para compilar o sistema, execute o comando a seguir na raiz do codigo-fonte do projeto:
 ```bash
 $ mvn package
 ```
 
-    * Alguns pacotes do DSpace podem não ser úteis em alguns casos. Caso deseje ignorá-los durante a compilação, basta usar a opção “-P” passando como parâmetro os nomes dos pacotes antecedidos por “!”. Ex.:
+    * Alguns pacotes do DSpace podem não ser úteis em alguns casos. Caso deseje ignorá-los durante a compilação, basta usar a opção “-P” passando como parâmetro os nomes dos pacotes antecedidos por "!". Ex.:
 
-        ```bash
-$ mvn package -P “!dspace-lni, !dspace-sword, !dspace-swordv2, !dspace-jspui, !dspace-rdf”
+        ```
+$ mvn package -P "!dspace-lni, !dspace-sword, !dspace-swordv2, !dspace-jspui, !dspace-rdf"
         ```
 
-3. Instalar o sistema, executando os comandos a seguir. Durante essa instalação serão criadas as tabelas no banco de dados configurado e o diretório de instalação contendo todos os arquivos necessários para a execução do Dspace.
+* Para instalar o sistema, execute os comandos a seguir. Durante essa instalação serão criadas as tabelas no banco de dados e o diretório de instalação contendo todos os arquivos necessários para a execução do Dspace.
 ```bash
 $ cd [DIR_SRC]/dspace/target/dspace-installer
 $ ant fresh_install
+```
+
+* Para atualizar o sistema, execute novamente o comando para compilar o sistema e depois, no lugar da opção `fresh_install` utilizada no passo de instalação, utilize a opção `update`. Isso irá atualizar os webapps, configurações do diretório [DIR_INSTALACAO] e fazer as migrações do banco de dados, e não irá alterar nada do que está armazenado no sistema.
+```bash
+$ cd [DIR_SRC]/dspace/target/dspace-installer
+$ ant update
 ```
 
 ---
 
 ## Instalação do sistema
 
-* No arquivo `/etc/tomcat7/server.xml`, alterar o parâmetro `appBase` do campo `<Host>` para `<DIR_INSTALACAO>/webapps`:
+* Configurar o Tomcat7 para ser executado no usuário `dspace` para evitar problemas de conflito de permissões dos arquivos entre o usuário `tomcat7` e `dspace`. Para isso, altere o parâmetro `TOMCAT7_USER` de `tomcat7` para `dspace` no arquivo `/etc/default/tomcat7`.
+```text
+TOMCAT7_USER=dspace
+```
 
-    ```xml
+* Alterar a permissão dos diretórios de trabalho do Tomcat7, executando os seguintes comandos como `root`:
+```bash
+$ chown -R dspace:tomcat7 /var/log/tomcat7
+$ chown -R dspace:tomcat7 /var/lib/tomcat7
+$ chown -R dspace:tomcat7 /var/cache/tomcat7
+```
+
+* Configuração do diretório base dos webapps utilizados pelo Tomcat7:
+
+    * **Opção 1)** Utilizar o diretório de webapps criados durante a instalação do DSpace. Para isso, no arquivo `/etc/tomcat7/server.xml`, altere o parâmetro `appBase` do campo `<Host>` para `[DIR_INSTALACAO]/webapps`:
+
+        ```xml
 <Host name="localhost" appBase="[DIR_INSTALACAO]/webapps"
 unpackWARs="true" autoDeploy="true">
-    ```
+        ```
+
+        * Obs.: Esse diretório é atualizado automaticamente após uma atualização do DSpace.
+
+    * **Opção 2)** Utilizar o diretório padrão de webapps do Tomcat7. Para isso, copie os diretórios existentes no diretório `[DIR_INSTALACAO]/webapps` para `/var/lib/tomcat7/webapps`:
+
+        ```bash
+rsync --checksum --delete-delay --recursive [DIR_INSTALACAO]/webapps/* /var/lib/tomcat7/webapps/
+        ```
+
+        * Obs.: Esse mesmo comando pode ser usado para atualizar os webapps após uma atualização do DSpace, sem que seja necessário deletar e copiar novamente todos os webapps.
 
 * Configurar o tomcat para usar criptografia SSL/HTTPS
 
     * Criar uma chave RSA
 
         ```bash
-$ keytool -genkey -alias tomcat -keyalg RSA -keystore [CAMINHO_CHAVE]
+$ keytool -genkey -alias tomcat -keyalg RSA -keystor [CAMINHO_CHAVE]
         ```
 
     * No arquivo `/var/lib/tomcat7/conf/server.xml`, adicionar os parâmetros `keystoreFile` e `keystorePass` no campo `<Connector port=8443>`:
@@ -159,7 +189,7 @@ keystoreFile="[ARQUIVO_KEYSTORE]" keystorePass="[SENHA]" />
 
     ```bash
 #!/bin/bash
-export CATALINA_OPTS="$CATALINA_OPTS -Xms1024m -Xmx2g"
+export CATALINA_OPTS="$CATALINA_OPTS -Xms2048m -Xmx2g"
     ```
 
 ---
@@ -168,3 +198,49 @@ export CATALINA_OPTS="$CATALINA_OPTS -Xms1024m -Xmx2g"
 
 * Abrir a página do sistema no navegador, acessando o link:
 [http://localhost:8080/xmlui](http://localhost:8080/xmlui)
+
+---
+
+## Usando o arquivo `Makefile`
+
+* Para agilizar os passos de compilação, instalação, atualização e deploy dos webapps foi criado um arquivo `Makefile`
+
+    * Primeiramente, baixe o arquivo e copie-o para o diretório [DIR_SRC].
+
+    * Depois abra-o para edição e altere os seguintes parâmetros:
+
+        * `DSPACE_WEBAPPS_FOLDER` : Diretório onde os webapps do DSpace são instalados (`[DIR_INSTALACAO]/webapps`).
+
+        * `MIRAGE2_FLAG` : `true` para instalar o tema Mirage2, `false` para não instalar
+
+    * Execute os seguintes comandos, dentro do diretório [DIR_SRC], para executar as tarefas correspondentes:
+
+        * Para compilar:
+
+            ```bash
+$ make
+            ```
+
+        * Para instalar:
+
+            ```bash
+$ make install
+            ```
+
+        * Para atualizar:
+
+            ```bash
+$ make update
+            ```
+
+        * Para fazer o deploys (copiar os webapps para o diretório de webapps padrão do Tomcat7):
+
+            ```bash
+$ make deploy
+            ```
+
+        * Para limpar os arquivos temporários criados durante a compilação:
+
+            ```bash
+$ make clean
+            ```

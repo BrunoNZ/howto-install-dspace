@@ -44,7 +44,7 @@ $ git clone https://github.com/DSpace/DSpace.git
     * Caso queira usar uma versão específica:
 
         ```bash
-$ git checkout dspace-5.5
+$ git checkout dspace-5.7
         ```
 
 * **Opção 2)** Diretamente pela página Git do projeto. Basta entrar na página, fazer o download e descompactar o pacote baixado.
@@ -119,7 +119,7 @@ $ mvn package
     * Alguns pacotes do DSpace podem não ser úteis em alguns casos. Caso deseje ignorá-los durante a compilação, basta usar a opção “-P” passando como parâmetro os nomes dos pacotes antecedidos por "!". Ex.:
 
         ```
-$ mvn package -P "!dspace-lni, !dspace-sword, !dspace-swordv2, !dspace-jspui, !dspace-rdf"
+$ mvn package -P '!dspace-lni, !dspace-sword, !dspace-swordv2, !dspace-jspui, !dspace-rdf'
         ```
 
 * Para instalar o sistema, execute os comandos a seguir. Durante essa instalação serão criadas as tabelas no banco de dados e o diretório de instalação contendo todos os arquivos necessários para a execução do Dspace.

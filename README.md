@@ -10,11 +10,7 @@ $ sudo apt-get install tomcat7 postgresql postgresql-contrib openjdk-8-jdk maven
 ## Criação do usuário
 
 Não é recomendado instalar o sistema DSpace no usuário `root`, e sim criar um usuário próprio. Para criar esse novo usuário, utilize o comando:
-```bash
-$ adduser dspace --ingroup tomcat7
-```
-
-* Para não permitir o login desse usuário na tela de login, utilize a  opção `-u` e use um UID menor que 1000. Ex.:
+A  opção `-u 999` serve para não permitir o login desse usuário na tela de login, forçando o uso de um UID menor que 1000.
 ```bash
 $ adduser dspace --ingroup tomcat7 -u 999
 ```

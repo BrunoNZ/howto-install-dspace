@@ -6,7 +6,6 @@
 $ sudo apt-get install tomcat7 postgresql postgresql-contrib openjdk-8-jdk maven ant
 ```
 
----
 
 ## Criação do usuário
 
@@ -30,7 +29,6 @@ $ sudo su - dspace
 $ exit
 ```
 
----
 
 ## Download do código-fonte
 
@@ -49,7 +47,7 @@ $ git checkout dspace-5.7
 
 * **Opção 2)** Diretamente pela página Git do projeto. Basta entrar na página, fazer o download e descompactar o pacote baixado.
 
----
+
 
 ## Criação e configuração do banco de dados
 
@@ -71,7 +69,7 @@ $ createdb -h localhost -U postgres -O [USUARIO_BD] [NOME_BD]
 $ psql -h localhost -U postgres -d [NOME_BD] -c "CREATE EXTENSION pgcrypto;"
 ```
 
----
+
 
 ## Configuração dos parâmetros de compilação e execução do sistema
 
@@ -100,7 +98,6 @@ db.username=[USUARIO_BD]
 db.password=[SENHA_USUARIO_BD]
         ```
 
----
 
 ## Compilação do sistema
 
@@ -134,7 +131,7 @@ $ cd [DIR_SRC]/dspace/target/dspace-installer
 $ ant update
 ```
 
----
+
 
 ## Instalação do sistema
 
@@ -192,14 +189,12 @@ keystoreFile="[ARQUIVO_KEYSTORE]" keystorePass="[SENHA]" />
 export CATALINA_OPTS="$CATALINA_OPTS -Xms2048m -Xmx2g"
     ```
 
----
 
 ## Testando o sistema
 
 * Abrir a página do sistema no navegador, acessando o link:
 [http://localhost:8080/xmlui](http://localhost:8080/xmlui)
 
----
 
 ## Extras
 

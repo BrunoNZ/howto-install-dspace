@@ -9,7 +9,9 @@ $ sudo apt-get install tomcat7 postgresql postgresql-contrib openjdk-8-jdk maven
 
 ## Criação do usuário
 
-Não é recomendado instalar o sistema DSpace no usuário `root`, e sim criar um usuário próprio. Para criar esse novo usuário, utilize o comando:
+Não é recomendado instalar o sistema DSpace no usuário `root`, e sim criar um usuário próprio.
+
+* Para criar esse novo usuário, utilize o comando:
 A  opção `-u 999` serve para não permitir o login desse usuário na tela de login, forçando o uso de um UID menor que 1000.
 ```bash
 $ adduser dspace --ingroup tomcat7 -u 999
@@ -144,9 +146,11 @@ TOMCAT7_USER=dspace
 
 * Alterar a permissão dos diretórios de trabalho do Tomcat7, executando os seguintes comandos como `root`:
 ```bash
-$ chown -R dspace:tomcat7 /var/log/tomcat7
-$ chown -R dspace:tomcat7 /var/lib/tomcat7
-$ chown -R dspace:tomcat7 /var/cache/tomcat7
+$ sudo service tomcat7 stop
+$ sudo chown -R dspace:tomcat7 /var/log/tomcat7
+$ sudo chown -R dspace:tomcat7 /var/lib/tomcat7
+$ sudo chown -R dspace:tomcat7 /var/cache/tomcat7
+$ sudo service tomcat7 start
 ```
 
 * Configuração do diretório base dos webapps utilizados pelo Tomcat7:
@@ -192,10 +196,18 @@ export CATALINA_OPTS="$CATALINA_OPTS -Xms2048m -Xmx2g"
     ```
 
 
-## Testando o sistema
+## Criação do usuário administrador e Teste do sistema
 
-* Abrir a página do sistema no navegador, acessando o link:
-[http://localhost:8080/xmlui](http://localhost:8080/xmlui)
+* Para criar o usuário administrador, no usuário "dspace", execute os comandos:
+
+```bash
+$ cd [DIR_INSTALACAO]
+$ ./bin/dspace create-administrator
+```
+
+* Para testar o sistema, abra o navegador e acesse os links:
+    * [http://localhost:8080/xmlui](http://localhost:8080/xmlui)
+    * [https://localhost:8443/rest](https://localhost:8443/rest)
 
 
 ## Extras

@@ -65,6 +65,12 @@ $ createdb -h localhost -U postgres -O [USUARIO_BD] [NOME_BD]
 $ psql -h localhost -U postgres -d [NOME_BD] -c "CREATE EXTENSION pgcrypto;"
 ```
 
+* Para remover um usuário ou um banco de dados, utilize os comandos:
+```bash
+$ dropdb -h localhost -U postgres [NOME_BD]
+$ dropuser -h localhost -U postgres [USUARIO_BD]
+```
+
 
 
 ## Configuração dos parâmetros de compilação e execução do sistema

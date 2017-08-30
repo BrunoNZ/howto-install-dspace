@@ -83,7 +83,7 @@ No usuário `dspace`:
 
   * No DSpace 5 ou inferior: `[DIR_SRC]/build.properties`. As alterações devem ser feitas diretamente nesse arquivo.
 
-  * No Dspace 6 ou superior: `[DIR_SRC]/local.cfg.EXAMPLE`. Copie esse arquivo para `[DIR_SRC]/local.cfg` e faça as alterações nesse novo arquivo.
+  * No Dspace 6 ou superior: `[DIR_SRC]/dspace/config/local.cfg.EXAMPLE`. Copie esse arquivo para `[DIR_SRC]/local.cfg` e faça as alterações nesse novo arquivo.
 
 
 * As configurações mais importantes são:

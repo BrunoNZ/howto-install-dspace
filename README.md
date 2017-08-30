@@ -177,7 +177,7 @@ rsync --checksum --delete-delay --recursive [DIR_INSTALACAO]/webapps/* /var/lib/
     * Criar uma chave RSA
 
         ```bash
-$ keytool -genkey -alias tomcat -keyalg RSA -keystor [CAMINHO_CHAVE]
+$ keytool -genkey -alias tomcat -keyalg RSA -keystore [CAMINHO_CHAVE]
         ```
 
     * No arquivo `/var/lib/tomcat7/conf/server.xml`, adicionar os parâmetros `keystoreFile` e `keystorePass` no campo `<Connector port=8443>`:

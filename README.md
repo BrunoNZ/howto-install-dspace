@@ -6,6 +6,14 @@
 $ sudo apt-get install tomcat7 postgresql postgresql-contrib openjdk-8-jdk maven ant
 ```
 
+* Caso queira usar o tema Mirage2, é necessário instalar mais alguns pacotes:
+```bash
+$ sudo apt-get install npm coffeescript ruby-compass
+$ sudo curl -sSL https://get.rvm.io | bash -s stable
+$ sudo npm install --no-check-certificate -g bower
+$ sudo npm install --no-check-certificate -g grunt
+$ sudo npm install --no-check-certificate -g grunt-cli
+```
 
 ## Criação do usuário
 

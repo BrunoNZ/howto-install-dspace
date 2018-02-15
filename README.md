@@ -199,9 +199,12 @@ keystoreFile="[ARQUIVO_KEYSTORE]" keystorePass="[SENHA]" />
 
     ```bash
 #!/bin/bash
-export CATALINA_OPTS="$CATALINA_OPTS -Xms2048m -Xmx2g"
+export CATALINA_OPTS="$CATALINA_OPTS -Xms2048m -Xmx2048m -XX:MaxPermSize=256m"
     ```
 
+    Para mais informações:
+    * https://wiki.duraspace.org/display/DSDOC6x/Performance+Tuning+DSpace
+    * https://tomcat.apache.org/tomcat-7.0-doc/monitoring.html
 
 ## Criação do usuário administrador e Teste do sistema
 

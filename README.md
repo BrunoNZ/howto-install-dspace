@@ -24,7 +24,7 @@ Não é recomendado instalar o sistema DSpace no usuário `root`, e sim criar um
 * Para criar esse novo usuário, utilize o comando:
 A  opção `-u 999` serve para não permitir o login desse usuário na tela de login, forçando o uso de um UID menor que 1000.
 ```bash
-$ adduser dspace --ingroup tomcat7 -u 999
+$ adduser dspace --ingroup tomcat8 -u 999
 ```
 
 * Para logar no usuário recém criado, utilize:
@@ -35,6 +35,11 @@ $ sudo su - dspace
 * Caso seja necessário voltar para o usuário root, utilize:
 ```bash
 $ exit
+```
+
+* Caso deseje usar um usuário já existente, utilize o comando abaixo para adicioná-lo ao grupo `tomcat8`. Nesse caso, utilize o usuário desejado sempre que for referenciado o usuário `dspace`.
+```bash
+$ sudo usermod -a -G tomcat8 [USUARIO]
 ```
 
 

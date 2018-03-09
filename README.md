@@ -132,6 +132,11 @@ $ mvn package
         ```
 $ mvn package -P '!dspace-lni, !dspace-sword, !dspace-swordv2, !dspace-jspui, !dspace-rdf'
         ```
+        
+    * Para instalar o tema Mirage2, adicione as seguintes opções ao comando `mvn package`:
+        ```
+-Dmirage2.on=true -Dmirage2.deps.included=false
+        ```
 
 * Para instalar o sistema, execute os comandos a seguir. Durante essa instalação serão criadas as tabelas no banco de dados e o diretório de instalação contendo todos os arquivos necessários para a execução do Dspace.
 ```bash

@@ -3,16 +3,19 @@
 ## Instalação das dependências
 
 ```bash
-$ sudo apt-get install tomcat7 postgresql postgresql-contrib openjdk-8-jdk maven ant
+$ sudo apt-get install tomcat8 openjdk-8-jdk-headless postgresql postgresql-contrib maven ant
 ```
 
 * Caso queira usar o tema Mirage2, é necessário instalar mais alguns pacotes:
 
 ```bash
 $ sudo apt-get install npm coffeescript ruby-compass
-$ sudo curl -sSL https://get.rvm.io | bash -s stable
 $ sudo npm install --no-check-certificate -g grunt-cli
 ```
+
+* Observações:
+    *   O pacote `postgresql-contrib` só é necessário para a instalação do DSpace 6, pois fornece o módulo `pgcrypto`.
+    *   Caso o pacote `npm` não esteja disponível, instalar o pacote `nodejs` disponibilizado por: [nodejs](https://nodejs.org/en/)
 
 ## Criação do usuário
 
@@ -60,7 +63,7 @@ $ git checkout dspace-5.7
 ```bash
 $ sudo service postgresql start
 $ sudo su - postgres
-$ psql -­c "ALTER USER postgres WITH PASSWORD '[SENHA]' ;"
+$ psql -h localhost -U postgres -c "ALTER USER postgres WITH PASSWORD '[SENHA]' ;"
 ```
 
 * Para criar o usuário e o banco de dados no Postgres execute os seguintes comandos:
@@ -202,9 +205,9 @@ keystoreFile="[ARQUIVO_KEYSTORE]" keystorePass="[SENHA]" />
 export CATALINA_OPTS="$CATALINA_OPTS -Xms2048m -Xmx2048m -XX:MaxPermSize=256m"
     ```
 
-    Para mais informações:
-    * https://wiki.duraspace.org/display/DSDOC6x/Performance+Tuning+DSpace
-    * https://tomcat.apache.org/tomcat-7.0-doc/monitoring.html
+    * Para mais informações:
+        * https://wiki.duraspace.org/display/DSDOC6x/Performance+Tuning+DSpace
+        * https://tomcat.apache.org/tomcat-7.0-doc/monitoring.html
 
 ## Criação do usuário administrador e Teste do sistema
 

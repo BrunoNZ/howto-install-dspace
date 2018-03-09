@@ -24,7 +24,7 @@ Não é recomendado instalar o sistema DSpace no usuário `root`, e sim criar um
 * Para criar esse novo usuário, utilize o comando:
 A  opção `-u 999` serve para não permitir o login desse usuário na tela de login, forçando o uso de um UID menor que 1000.
 ```bash
-$ adduser dspace --ingroup tomcat8 -u 999
+$ adduser dspace -u 999
 ```
 
 * Para logar no usuário recém criado, utilize:
@@ -35,11 +35,6 @@ $ sudo su - dspace
 * Caso seja necessário voltar para o usuário root, utilize:
 ```bash
 $ exit
-```
-
-* Caso deseje usar um usuário já existente, utilize o comando abaixo para adicioná-lo ao grupo `tomcat8`. Nesse caso, utilize o usuário desejado sempre que for referenciado o usuário `dspace`.
-```bash
-$ sudo usermod -a -G tomcat8 [USUARIO]
 ```
 
 
@@ -154,23 +149,22 @@ $ ant update
 
 ## Instalação do sistema
 
-* Configurar o Tomcat7 para ser executado no usuário `dspace` para evitar problemas de conflito de permissões dos arquivos entre o usuário `tomcat7` e `dspace`. Para isso, altere o parâmetro `TOMCAT7_USER` de `tomcat7` para `dspace` no arquivo `/etc/default/tomcat7`.
+* Configurar o Tomcat8 para ser executado no usuário `dspace` para evitar problemas de conflito de permissões dos arquivos entre o usuário `tomcat8` e `dspace`. Para isso, altere os seguintes parâmetros no arquivo `/etc/default/tomcat8`.
 ```text
-TOMCAT7_USER=dspace
+TOMCAT8_USER=dspace
+TOMCAT8_GROUP=dspace
 ```
 
-* Alterar a permissão dos diretórios de trabalho do Tomcat7, executando os seguintes comandos como `root`:
+* Alterar a permissão dos diretórios de trabalho do Tomcat8, executando os seguintes comandos como `root`:
 ```bash
-$ sudo service tomcat7 stop
-$ sudo chown -R dspace:tomcat7 /var/log/tomcat7
-$ sudo chown -R dspace:tomcat7 /var/lib/tomcat7
-$ sudo chown -R dspace:tomcat7 /var/cache/tomcat7
-$ sudo service tomcat7 start
+$ sudo service tomcat8 stop
+$ sudo chown -R dspace:dspace /var/{log,lib,cache}/tomcat8
+$ sudo service tomcat8 start
 ```
 
-* Configuração do diretório base dos webapps utilizados pelo Tomcat7:
+* Configuração do diretório base dos webapps utilizados pelo Tomcat8:
 
-    * **Opção 1)** Utilizar o diretório de webapps criados durante a instalação do DSpace. Para isso, no arquivo `/etc/tomcat7/server.xml`, altere o parâmetro `appBase` do campo `<Host>` para `[DIR_INSTALACAO]/webapps`:
+    * **Opção 1)** Utilizar o diretório de webapps criados durante a instalação do DSpace. Para isso, no arquivo `/etc/tomcat8/server.xml`, altere o parâmetro `appBase` do campo `<Host>` para `[DIR_INSTALACAO]/webapps`:
 
         ```xml
 <Host name="localhost" appBase="[DIR_INSTALACAO]/webapps"
@@ -179,10 +173,10 @@ unpackWARs="true" autoDeploy="true">
 
         * Obs.: Esse diretório é atualizado automaticamente após uma atualização do DSpace.
 
-    * **Opção 2)** Utilizar o diretório padrão de webapps do Tomcat7. Para isso, copie os diretórios existentes no diretório `[DIR_INSTALACAO]/webapps` para `/var/lib/tomcat7/webapps`:
+    * **Opção 2)** Utilizar o diretório padrão de webapps do Tomcat8. Para isso, copie os diretórios existentes no diretório `[DIR_INSTALACAO]/webapps` para `/var/lib/tomcat8/webapps`:
 
         ```bash
-rsync --checksum --delete-delay --recursive [DIR_INSTALACAO]/webapps/* /var/lib/tomcat7/webapps/
+rsync --checksum --delete-delay --recursive [DIR_INSTALACAO]/webapps/* /var/lib/tomcat8/webapps/
         ```
 
         * Obs.: Esse mesmo comando pode ser usado para atualizar os webapps após uma atualização do DSpace, sem que seja necessário deletar e copiar novamente todos os webapps.
@@ -195,7 +189,7 @@ rsync --checksum --delete-delay --recursive [DIR_INSTALACAO]/webapps/* /var/lib/
 $ keytool -genkey -alias tomcat -keyalg RSA -keystore [CAMINHO_CHAVE]
         ```
 
-    * No arquivo `/var/lib/tomcat7/conf/server.xml`, adicionar os parâmetros `keystoreFile` e `keystorePass` no campo `<Connector port=8443>`:
+    * No arquivo `/var/lib/tomcat8/conf/server.xml`, adicionar os parâmetros `keystoreFile` e `keystorePass` no campo `<Connector port=8443>`:
 
         ```xml
 <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true" maxThreads="150"
@@ -203,7 +197,7 @@ scheme="https" secure="true" clientAuth="false" sslProtocol="TLS"
 keystoreFile="[ARQUIVO_KEYSTORE]" keystorePass="[SENHA]" />
         ```
 
-* Para evitar problema de falta de memória durante a execução do DSpace, adicione ao arquivo `/usr/share/tomcat7/bin/setenv.sh` as seguintes linhas:
+* Para evitar problema de falta de memória durante a execução do DSpace, adicione ao arquivo `/usr/share/tomcat8/bin/setenv.sh` as seguintes linhas:
 
     ```bash
 #!/bin/bash
@@ -266,7 +260,7 @@ $ make install
 $ make update
             ```
 
-        * Para fazer o deploys (copiar os webapps para o diretório de webapps padrão do Tomcat7):
+        * Para fazer o deploys (copiar os webapps para o diretório de webapps padrão do Tomcat8):
 
             ```bash
 $ make deploy

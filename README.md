@@ -50,7 +50,7 @@ $ git clone https://github.com/DSpace/DSpace.git
     * Caso queira usar uma versão específica:
 
         ```bash
-$ git checkout dspace-5.7
+$ git checkout dspace-6.2
         ```
 
 * **Opção 2)** Diretamente pela página Git do projeto. Basta entrar na página, fazer o download e descompactar o pacote baixado.
@@ -63,7 +63,7 @@ $ git checkout dspace-5.7
 ```bash
 $ sudo service postgresql start
 $ sudo su - postgres
-$ psql -h localhost -U postgres -c "ALTER USER postgres WITH PASSWORD '[SENHA]' ;"
+$ psql -h localhost -c "ALTER USER postgres WITH PASSWORD '[SENHA]' ;"
 ```
 
 * Para criar o usuário e o banco de dados no Postgres execute os seguintes comandos:

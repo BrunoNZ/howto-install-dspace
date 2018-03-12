@@ -17,9 +17,11 @@ $ sudo npm install --no-check-certificate -g grunt-cli
     *   O pacote `postgresql-contrib` só é necessário para a instalação do DSpace 6, pois fornece o módulo `pgcrypto`.
     *   Caso o pacote `npm` não esteja disponível, instalar o pacote `nodejs` disponibilizado por: [nodejs](https://nodejs.org/en/)
 
-## Criação do usuário
+## Criação do usuário do sistema
 
-Não é recomendado instalar o sistema DSpace no usuário `root`, e sim criar um usuário próprio.
+Não é recomendado instalar o sistema DSpace no usuário `root`.
+Caso deseje criar um novo usuário do sistema para esse fim, utilize os comandos abaixo.
+Caso deseje usar um usuário já existente, utilize esse usuário quando o usuário `dspace` do sistema for referenciado.
 
 * Para criar esse novo usuário, utilize o comando:
 A  opção `-u 999` serve para não permitir o login desse usuário na tela de login, forçando o uso de um UID menor que 1000.

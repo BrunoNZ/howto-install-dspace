@@ -167,6 +167,7 @@ TOMCAT8_GROUP=dspace
 $ sudo service tomcat8 stop
 $ sudo chown -R dspace:dspace /var/log/tomcat8
 $ sudo chown -R dspace:dspace /var/cache/tomcat8/Catalina
+$ sudo chown -R root:dspace /var/lib/tomcat8/conf
 $ sudo service tomcat8 start
 ```
 

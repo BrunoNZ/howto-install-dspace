@@ -165,7 +165,8 @@ TOMCAT8_GROUP=dspace
 * Alterar a permissão dos diretórios de trabalho do Tomcat8, executando os seguintes comandos como `root`:
 ```bash
 $ sudo service tomcat8 stop
-$ sudo chown -R dspace:dspace /var/{log,lib,cache}/tomcat8
+$ sudo chown -R dspace:dspace /var/log/tomcat8
+$ sudo chown -R dspace:dspace /var/cache/tomcat8/Catalina
 $ sudo service tomcat8 start
 ```
 

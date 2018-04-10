@@ -75,7 +75,7 @@ $ createuser -h localhost -U postgres --no-superuser --pwprompt [USUARIO_BD]
 $ createdb -h localhost -U postgres -O [USUARIO_BD] [NOME_BD]
 ```
 
-* Para o DSpace 6 ou posterior é preciso habilitar a extenão *pgcrypto* no banco de dados:
+* Para o DSpace 6 ou posterior é preciso habilitar a extensão *pgcrypto* no banco de dados:
 ```bash
 $ psql -h localhost -U postgres -d [NOME_BD] -c "CREATE EXTENSION pgcrypto;"
 ```
@@ -281,3 +281,44 @@ $ make deploy
             ```bash
 $ make clean
             ```
+
+# Como resetar o conteúdo do DSpace
+
+#### `CUIDADO! Esse procedimento irá resetar todo o conteudo do DSpace. NUNCA FAZER ISSO EM UMA INSTÂNCIA DE PRODUÇÂO`
+
+* Alterar o parâmetro `db.cleanDisabled` para falso, no arquivo `config/dspace.cfg`, a fim de permitir a execução do comando `dspace database clean`. Esse parâmetro pode ser alterado diretamente no diretório de instalação e, nesse caso, não é necessário reiniciar o tomcat.
+
+    ```xml
+    db.cleanDisabled=false
+    ```
+
+* Adicionar poderes de Super-usuário ao usuário `dspace` do postgresql:
+
+    ```bash
+    psql -h localhost -U postgres -c "ALTER USER [USUARIO_BD] WITH SUPERUSER;"
+    ```
+
+* Limpar o conteúdo do DSpace:
+
+    ```bash
+    [DIR_INSTALACAO]/bin/dspace database clean
+    ```
+
+* Reabilitar a extensão *pgcrypto* no banco de dados:
+
+    ```bash
+    psql -h localhost -U postgres -d [NOME_BD] -c "CREATE EXTENSION pgcrypto;"
+    ```
+
+* Recriar o banco de dados do DSpace:
+
+    ```bash
+    [DIR_INSTALACAO]/bin/dspace database migrate
+    ```
+
+* Recriar o usuário administrador:
+
+    ```bash
+    [DIR_INSTALACAO]/bin/dspace create-administrator
+    ```
+

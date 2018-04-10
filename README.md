@@ -282,9 +282,13 @@ $ make deploy
 $ make clean
             ```
 
+# Como migrar o conteúdo de um instância do DSpace para outra
+
+
+
 # Como resetar o conteúdo do DSpace
 
-#### `CUIDADO! Esse procedimento irá resetar todo o conteudo do DSpace. NUNCA FAZER ISSO EM UMA INSTÂNCIA DE PRODUÇÂO`
+#### `CUIDADO! Esse procedimento irá resetar todo o conteudo do DSpace. NUNCA FAZER ISSO EM UMA INSTÂNCIA DE PRODUÇÃO`
 
 * Alterar o parâmetro `db.cleanDisabled` para falso, no arquivo `config/dspace.cfg`, a fim de permitir a execução do comando `dspace database clean`. Esse parâmetro pode ser alterado diretamente no diretório de instalação e, nesse caso, não é necessário reiniciar o tomcat.
 

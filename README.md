@@ -284,6 +284,14 @@ $ make clean
 
 # Como migrar o conteúdo de um instância do DSpace para outra
 
+* Fazer a migração do banco de dados:
+
+```bash
+$ pg_dump -h localhost -U dspace -d dspace-6 -a -f dump_dspace6.dump
+$ psql -h localhost -U dspace -d dspace-6 < dump_dspace6.sql 
+
+```
+
 
 
 # Como resetar o conteúdo do DSpace
@@ -299,25 +307,25 @@ $ make clean
 * Adicionar poderes de Super-usuário ao usuário `dspace` do postgresql:
 
     ```bash
-    psql -h localhost -U postgres -c "ALTER USER [USUARIO_BD] WITH SUPERUSER;"
+    $ psql -h localhost -U postgres -c "ALTER USER [USUARIO_BD] WITH SUPERUSER;"
     ```
 
 * Limpar o conteúdo do DSpace:
 
     ```bash
-    [DIR_INSTALACAO]/bin/dspace database clean
+    $ [DIR_INSTALACAO]/bin/dspace database clean
     ```
 
 * Reabilitar a extensão *pgcrypto* no banco de dados:
 
     ```bash
-    psql -h localhost -U postgres -d [NOME_BD] -c "CREATE EXTENSION pgcrypto;"
+    $ psql -h localhost -U postgres -d [NOME_BD] -c "CREATE EXTENSION pgcrypto;"
     ```
 
 * Recriar o banco de dados do DSpace:
 
     ```bash
-    [DIR_INSTALACAO]/bin/dspace database migrate
+    $ [DIR_INSTALACAO]/bin/dspace database migrate
     ```
 
 * Recriar o usuário administrador:

@@ -287,35 +287,52 @@ $ make clean
 * Fazer a migração do banco de dados:
 
     * Na instância original:
-    
-    ```bash
-    $ pg_dump -h localhost -U postgres -Ft -f dump_dspace.tar [NOME_BD]
-    ```
+        
+        ```bash
+        $ pg_dump -h localhost -U postgres -Ft -f dump_dspace.tar [NOME_BD]
+        ```
 
     * Na instância nova:
     
-    ```bash
-    $ createdb -h localhost -U postgres -O [USUARIO_BD] [NOME_BD_NOVO]
-    $ pg_restore -h localhost -U postgres -d [NOME_BD_NOVO] dump_dspace.tar
-    ```
+        ```bash
+        $ createdb -h localhost -U postgres -O [USUARIO_BD] [NOME_BD_NOVO]
+        $ pg_restore -h localhost -U postgres -d [NOME_BD_NOVO] dump_dspace.tar
+        ```
+    
+* Fazer a migração dos arquivos (assetstore), copiando o diretório `assetstore` da instância original para a instância nova.
 
 * Fazer a migração do dados do SOLR:
 
-    * Copiar o conteúdo do diretório SOLR da instância original para a instância nova:
-    
-    ```bash
-    $ rsync -Arv --delete --delete-excluded [USER@HOST:][DIR_INSTALACAO]/solr/* [USER@HOST_NOVO:][DIR_INSTALACAO_NOVO]/solr/
-    ```
-    
-    * Caso existam shards 
-    
-        * Copiar os diretórios dos shards para dentro do diretório SOLR da instância nova:
+    * Método 1: Sem utilizar os comandos de importação/exportação
+
+        * Copiar o conteúdo do diretório SOLR da instância original para a instância nova:
         
-        ```bash
-        $ scp -r [USER@HOST:][DIR_INSTALACAO]/solr/[SHARD] [USER@HOST_NOVO:][DIR_INSTALACAO_NOVO]/solr/
-        ```
+            ```bash
+            $ rsync -Arv --delete --delete-excluded [USER@HOST:][DIR_INSTALACAO]/solr/* [USER@HOST_NOVO:][DIR_INSTALACAO_NOVO]/solr/
+            ```
         
-        * Adicionar core
+        * Caso existam outros shards/cores de estatísticas do SOLR, ativados ou não, deve-se seguir os passos a seguir para adicioná-los ao SOLR da instância nova.
+        
+            Obs.: O mesmo serve para os shards/cores diferentes dos originais que foram copiados da instância original, pois apenas os shards/cores originais do DSpace (authority, oai, search, statistics) são carregados automaticamente.
+        
+            * Copiar os diretórios dos shards para dentro do diretório SOLR da instância nova:
+            
+                ```bash
+                $ scp -r [USER@HOST:][DIR_INSTALACAO]/solr/[SHARD] [USER@HOST_NOVO:][DIR_INSTALACAO_NOVO]/solr/
+                ```
+            
+            * Adicionar o shards/core no SOLR da instância original:
+            
+                Obs.1: Deve-se executar o comando abaixo para cada shard, substituindo [NOME] pelo nome do shard e [DIR_INSTALACAO_NOVO] pelo caminho completo de instalação.
+                Ex.: "...&name=statistics-2017&/home/dspace/run/solr/statistics-2017/data"
+                
+                Obs.2: Em caso de sucesso o comando deve retornar `"status":0`
+                
+                ```bash
+                $ curl -k "https://localhost:8443/solr/admin/cores?action=CREATE&wt=json&indexInfo=false&instanceDir=statistics&config=solrconfig.xml&schema=schema.xml&name=statistics-[NOME]&dataDir=[DIR_INSTALACAO_NOVO]/solr/statistics-[NOME]/data"
+            ```
+            
+    * Método 1: Sem utilizar os comandos de importação/exportação
 
 # Como resetar o conteúdo do DSpace
 

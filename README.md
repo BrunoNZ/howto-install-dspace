@@ -321,7 +321,16 @@ $ make clean
     ```bash
     $ [DIR_INSTALACAO]/bin/dspace database clean
     ```
+    
+* Limpar o conteúdo do SOLR do DSpace:
 
+    Obs.: É necessário que o tomcat esteja ativo
+
+    ```bash
+    $ curl -k https://localhost:8443/solr/statistics/update?commit=true -H "Content-Type: text/xml" --data-binary "<delete><query>*:*</query></delete>"
+    $ curl -k https://localhost:8443/solr/authority/update?commit=true -H "Content-Type: text/xml" --data-binary "<delete><query>*:*</query></delete>"
+    ```
+    
 * Reabilitar a extensão *pgcrypto* no banco de dados:
 
     ```bash

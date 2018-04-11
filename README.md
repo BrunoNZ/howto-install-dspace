@@ -236,8 +236,8 @@ $ ./bin/dspace create-administrator
 
 * Para agilizar os passos de criar o usuário e banco de dados no PostgreSQL, foi criado dois scripts `create_pqsl_user.sh` e `create_pqsl_db.sh` que executam, respectivamente, essas tarefas. Para executá-los utilize os comandos abaixo:
 ```bash
-$ ./create_pqsl_user.sh [USER_NAME]
-$ ./create_psql_db.sh [USER_NAME] [DATABASE_NAME]
+$ ./create_pqsl_user.sh [USUARIO_BD]
+$ ./create_psql_db.sh [USUARIO_BD] [NOME_BD]
 ```
 
 * Para agilizar os passos de compilação, instalação, atualização e deploy dos webapps foi criado um arquivo `Makefile`.
@@ -286,12 +286,18 @@ $ make clean
 
 * Fazer a migração do banco de dados:
 
-```bash
-$ pg_dump -h localhost -U dspace -d dspace-6 -a -f dump_dspace6.dump
-$ psql -h localhost -U dspace -d dspace-6 < dump_dspace6.sql 
+    * Na instância original:
+    ```bash
+    $ pg_dump -h localhost -U postgres -Ft -f dump_dspace.tar [NOME_BD]
+    ```
 
-```
+    * Na instância nova:
+    ```bash
+    $ createdb -h localhost -U postgres -O [USUARIO_BD] [NOME_BD_NOVO]
+    $ pg_restore -h localhost -U postgres -d [NOME_BD_NOVO] dump_dspace.tar
+    ```
 
+* Copiar
 
 
 # Como resetar o conteúdo do DSpace

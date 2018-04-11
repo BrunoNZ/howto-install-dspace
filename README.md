@@ -299,7 +299,11 @@ $ make clean
         $ pg_restore -h localhost -U postgres -d [NOME_BD_NOVO] dump_dspace.tar
         ```
     
-* Fazer a migração dos arquivos (assetstore), copiando o diretório `assetstore` da instância original para a instância nova.
+* Fazer a migração dos arquivos, copiando o diretório `assetstore` da instância original para a instância nova.
+
+* Fazer a migração dos logs, copiando o diretório `logs` da instância original para a instância nova.
+
+* Fazer a migração das configurações do handle, copiando o diretório `handle-server` da instância original para a instância nova, supondo que o servidor em que ficará instalada a nova instância tenha o mesmo IP que o servidor em que estava instalada a instância original.
 
 * Fazer a migração do dados do SOLR:
 

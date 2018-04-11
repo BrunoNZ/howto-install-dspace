@@ -287,18 +287,35 @@ $ make clean
 * Fazer a migração do banco de dados:
 
     * Na instância original:
+    
     ```bash
     $ pg_dump -h localhost -U postgres -Ft -f dump_dspace.tar [NOME_BD]
     ```
 
     * Na instância nova:
+    
     ```bash
     $ createdb -h localhost -U postgres -O [USUARIO_BD] [NOME_BD_NOVO]
     $ pg_restore -h localhost -U postgres -d [NOME_BD_NOVO] dump_dspace.tar
     ```
 
-* Copiar
+* Fazer a migração do dados do SOLR:
 
+    * Copiar o conteúdo do diretório SOLR da instância original para a instância nova:
+    
+    ```bash
+    $ rsync -Arv --delete --delete-excluded [USER@HOST:][DIR_INSTALACAO]/solr/* [USER@HOST_NOVO:][DIR_INSTALACAO_NOVO]/solr/
+    ```
+    
+    * Caso existam shards 
+    
+        * Copiar os diretórios dos shards para dentro do diretório SOLR da instância nova:
+        
+        ```bash
+        $ scp -r [USER@HOST:][DIR_INSTALACAO]/solr/[SHARD] [USER@HOST_NOVO:][DIR_INSTALACAO_NOVO]/solr/
+        ```
+        
+        * Adicionar core
 
 # Como resetar o conteúdo do DSpace
 

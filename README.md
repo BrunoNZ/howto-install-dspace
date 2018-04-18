@@ -336,7 +336,13 @@ $ make clean
                 $ curl -k "https://localhost:8443/solr/admin/cores?action=CREATE&wt=json&indexInfo=false&instanceDir=statistics&config=solrconfig.xml&schema=schema.xml&name=statistics-[NOME]&dataDir=[DIR_INSTALACAO_NOVO]/solr/statistics-[NOME]/data"
             ```
             
-    * Método 1: Sem utilizar os comandos de importação/exportação
+    * Método 2: Utilizando os comandos de importação/exportação
+    
+* Reindexar os shards/cores de estatísticas do SOLR, principalmente para os diretórios mais antigos que possuem esquemas diferentes dos atuais (ex.: uso do Handle e não do UUID na identificação do item)
+
+    ```bash
+    $ ./bin/dspace solr-reindex-statistics -a reindex -i statistics-[NOME] -f
+    ```
 
 # Como resetar o conteúdo do DSpace
 

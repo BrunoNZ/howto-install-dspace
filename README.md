@@ -329,25 +329,35 @@ $ make clean
     
             * Método 1: Sem utilizar os comandos de importação/exportação (via linha de comando):
                 
-                Ex.: "...&name=statistics-2017&/home/dspace/run/solr/statistics-2017/data"
-                
                 Obs.: Em caso de sucesso o comando deve retornar `"status":0`
                 
                 ```bash
                 $ curl -k "https://localhost:8443/solr/admin/cores?action=CREATE&wt=json&indexInfo=false&instanceDir=statistics&config=solrconfig.xml&schema=schema.xml&name=statistics-[NOME]&dataDir=[DIR_INSTALACAO_NOVO]/solr/statistics-[NOME]/data"
-            ```
+                ```
+                
+                Ex.: "...&name=statistics-2017&/home/dspace/run/solr/statistics-2017/data"
             
             * Método 2: Utilizando os comandos de importação/exportação (via interface gráfica):
 
                 * Caso a instalação não esteja sendo feita na máquina local deve ser usado um túnel SSH para acessar a interface gráfica do SOLR.
-
-                ```bash
-                $ ssh -L 8585:localhost:8080 USER@SERVIDOR
-                ```
-
-                    Obs.: A port `8585` é só um exemplo. Outras portas podem ser usadas.
                 
-                * Utilizar um navegador para acessar a interfáce gráfica do SOLR no endereço `servidor:8080/solr` ou `localhost:8585/solr`, caso a instalação não não esteja sendo feita na máquina local.
+                    Obs.: A porta `8585` é só um exemplo. Outras portas podem ser usadas.
+                    
+                    Obs.2: O comando deve ser executado na máquina local e deve permanecer em execução até o fim do processo.
+
+                    ```bash
+                    $ ssh -L 8585:localhost:8080 USER@SERVIDOR
+                    ```
+
+                * Utilizar um navegador para acessar a interface gráfica do SOLR no endereço `localhost:8080/solr` ou, caso a instalação não não esteja sendo feita na máquina local, `localhost:8585/solr`.
+                
+                * Clicar em `Core Admin`, no menu lateral e depois em `Add Core`, no menu superior.
+                
+                * Preencher os campos `name`, `instanceDir` e `dataDir` da maneira a seguir e clicar em `Add Core` (na parte inferior do diálogo):
+                
+                    `name` : statistics-[NOME] / `instanceDir` : statistics / `dataDir` : [DIR_INSTALACAO_NOVO]/solr/statistics-[NOME]/data
+                    
+                    Ex.: `name` : statistics-2017 / `instanceDir` : statistics / `dataDir` : /home/dspace/run/solr/statistics-2017/data
             
     
 * Reindexar os shards/cores de estatísticas do SOLR, principalmente para os diretórios mais antigos que possuem esquemas diferentes dos atuais (ex.: uso do Handle e não do UUID na identificação do item)

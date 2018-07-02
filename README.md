@@ -66,7 +66,7 @@ $ git checkout dspace-6.2
 ```bash
 $ sudo service postgresql start
 $ sudo su - postgres
-$ psql -h localhost -c "ALTER USER postgres WITH PASSWORD '[SENHA]' ;"
+$ psql -c "ALTER USER postgres WITH PASSWORD '[SENHA]' ;"
 ```
 
 * Para criar o usuário e o banco de dados no Postgres execute os seguintes comandos:

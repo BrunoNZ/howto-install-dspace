@@ -114,6 +114,13 @@ db.url=jdbc:postgresql://localhost:5432/[NOME_BD]
 db.username=[USUARIO_BD]
 db.password=[SENHA_USUARIO_BD]
         ```
+* Caso queira usar o tema Mirage2 modifique a seção `<themes>` do arquivo `[DIR_SRC]/dspace/config/xmlui.xconf` para habilitar o tema Mirage 2 e desabilitar o tema original:
+```xml
+<themes>
+    <!-- <theme name="Atmire Mirage Theme" regex=".*" path="Mirage/" /> -->
+    <theme name="Mirage 2" regex=".*" path="Mirage2/" />
+</themes>
+```
 
 
 ## Compilação do sistema

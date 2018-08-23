@@ -9,7 +9,9 @@ $ sudo apt-get install tomcat8 openjdk-8-jdk-headless postgresql postgresql-cont
 * Caso queira usar o tema Mirage2, é necessário instalar mais alguns pacotes:
 
 ```bash
-$ sudo apt-get install npm coffeescript ruby-compass
+$ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+$ sudo apt-get install npm coffeescript ruby-compass nodejs
+$ sudo npm install --no-check-certificate -g bower
 $ sudo npm install --no-check-certificate -g grunt-cli
 ```
 

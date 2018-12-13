@@ -203,18 +203,18 @@ No usuário `dspace`:
         ```
 
     * No arquivo `/var/lib/tomcat8/conf/server.xml`, adicionar os parâmetros `keystoreFile` e `keystorePass` no campo `<Connector port=8443>`:
-
         ```xml
         <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true" maxThreads="150"
         scheme="https" secure="true" clientAuth="false" sslProtocol="TLS"
         keystoreFile="[ARQUIVO_KEYSTORE]" keystorePass="[SENHA]" />
         ```
+        
+        * Obs.: Caso ainda não exista esse campo com esses parâmetros, basta copiar e colar o código no arquivo citado onde os outros campos `<Connector ...` estão.
 
 * Para evitar problema de falta de memória durante a execução do DSpace, adicione ao arquivo `/usr/share/tomcat8/bin/setenv.sh` as seguintes linhas:
-
     ```bash
-#!/bin/bash
-export CATALINA_OPTS="$CATALINA_OPTS -Xms2048m -Xmx2048m -XX:MaxPermSize=256m"
+    #!/bin/bash
+    export CATALINA_OPTS="$CATALINA_OPTS -Xms2048m -Xmx2048m -XX:MaxPermSize=256m"
     ```
 
     * Para mais informações:
@@ -278,6 +278,13 @@ export CATALINA_OPTS="$CATALINA_OPTS -Xms2048m -Xmx2048m -XX:MaxPermSize=256m"
             ```bash
             $ make clean
             ```
+
+# Como compilar e atualizar apenas um módulo 
+
+* Para compilar apenas um módulo (ex.: dspace-rest), use o comando:
+    ```bash
+    $ mvn package -pl dspace-rest -am -T 4 && (cd dspace/target/dspace-installer/ && ant update)
+    ```
 
 # Como migrar o conteúdo de um instância do DSpace para outra
 

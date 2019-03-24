@@ -3,7 +3,7 @@
 ## Instalação das dependências
 
 ```bash
-$ sudo apt-get install tomcat8 openjdk-8-jdk-headless postgresql postgresql-contrib maven ant
+$ sudo apt-get install tomcat8 openjdk-8-jdk-headless postgresql postgresql-contrib maven ant git vim
 ```
 
 * Caso queira usar o tema Mirage2, é necessário instalar mais alguns pacotes:
@@ -53,7 +53,7 @@ No usuário `dspace`:
 
     - Caso queira usar uma versão específica:
         ```bash
-        $ git checkout dspace-6.2
+        $ git checkout dspace-6.3
         ```
 
 * **Opção 2)** Diretamente pela página Git do projeto. Basta entrar na página, fazer o download e descompactar o pacote baixado.
@@ -172,6 +172,7 @@ No usuário `dspace`:
     $ sudo service tomcat8 stop
     $ sudo chown -R dspace:dspace /var/log/tomcat8
     $ sudo chown -R dspace:dspace /var/cache/tomcat8
+    $ sudo chown -R dspace:dspace /var/lib/tomcat8/webapps
     $ sudo chown -R root:dspace /var/lib/tomcat8/conf
     $ sudo service tomcat8 start
     ```

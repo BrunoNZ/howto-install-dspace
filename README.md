@@ -42,23 +42,6 @@ A  opção `-u 999` serve para não permitir o login desse usuário na tela de l
     ```
 
 
-## Download do código-fonte
-
-No usuário `dspace`:
-
-* **Opção 1)** Utilizando o Git:
-    ```bash
-    $ git clone https://github.com/DSpace/DSpace.git
-    ```
-
-    - Caso queira usar uma versão específica:
-        ```bash
-        $ git checkout dspace-6.3
-        ```
-
-* **Opção 2)** Diretamente pela página Git do projeto. Basta entrar na página, fazer o download e descompactar o pacote baixado.
-
-
 
 ## Criação e configuração do banco de dados
 
@@ -85,6 +68,24 @@ No usuário `dspace`:
     $ dropdb -h localhost -U postgres [NOME_BD]
     $ dropuser -h localhost -U postgres [USUARIO_BD]
     ```
+
+
+
+## Download do código-fonte
+
+No usuário `dspace`:
+
+* **Opção 1)** Utilizando o Git:
+    ```bash
+    $ git clone https://github.com/DSpace/DSpace.git
+    ```
+
+    - Caso queira usar uma versão específica:
+        ```bash
+        $ git checkout dspace-6.3
+        ```
+
+* **Opção 2)** Diretamente pela página Git do projeto. Basta entrar na página, fazer o download e descompactar o pacote baixado.
 
 
 

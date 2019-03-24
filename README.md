@@ -175,6 +175,7 @@ No usuário `dspace`:
     $ sudo chown -R dspace:dspace /var/cache/tomcat8
     $ sudo chown -R dspace:dspace /var/lib/tomcat8/webapps
     $ sudo chown -R root:dspace /var/lib/tomcat8/conf
+    $ sudo chown -R root:dspace /usr/share/tomcat8
     $ sudo service tomcat8 start
     ```
 

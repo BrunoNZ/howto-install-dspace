@@ -206,7 +206,7 @@ No usuário `dspace`:
 
     * Criar uma chave RSA
         ```bash
-        $ keytool -genkey -alias tomcat -keyalg RSA -keystore [CAMINHO_CHAVE]
+        $ keytool -genkey -alias tomcat -keyalg RSA -keystore [ARQUIVO_KEYSTORE]
         ```
 
     * No arquivo `/var/lib/tomcat8/conf/server.xml`, adicionar os parâmetros `keystoreFile` e `keystorePass` no campo `<Connector port=8443>`:
@@ -216,7 +216,19 @@ No usuário `dspace`:
         keystoreFile="[ARQUIVO_KEYSTORE]" keystorePass="[SENHA]" />
         ```
         
-        * Obs.: Caso ainda não exista esse campo com esses parâmetros, basta copiar e colar o código no arquivo citado onde os outros campos `<Connector ...` estão.
+        ou, se a versão do tomcat for mais nova:
+        
+        ```xml
+        <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol" maxThreads="150" SSLEnabled="true">
+            <SSLHostConfig>
+                <Certificate certificateKeystoreFile="[ARQUIVO_KEYSTORE]" certificateKeystorePassword="[SENHA]" type="RSA" />
+            </SSLHostConfig>
+        </Connector>
+        ```
+        
+        * Caso ainda não exista esse campo com esses parâmetros, basta copiar e colar o código no arquivo citado onde os outros campos `<Connector ...` estão.
+        * Deve ser usado o caminho absoluto do arquivo da chave.
+        
 
 * Para evitar problema de falta de memória durante a execução do DSpace, adicione ao arquivo `/usr/share/tomcat8/bin/setenv.sh` as seguintes linhas:
     ```bash

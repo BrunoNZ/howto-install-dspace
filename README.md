@@ -8,15 +8,18 @@ $ sudo apt-get install tomcat8 openjdk-8-jdk-headless postgresql postgresql-cont
 
 * Caso queira usar o tema Mirage2, é necessário instalar mais alguns pacotes:
     ```bash
-    $ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-    $ sudo apt-get install npm coffeescript ruby-compass nodejs
-    $ sudo npm install --no-check-certificate -g bower
-    $ sudo npm install --no-check-certificate -g grunt-cli
+    $ apt-get install nodejs npm coffeescript ruby-compass
+    $ npm install --no-check-certificate -g bower
+    $ npm install --no-check-certificate -g grunt-cli
     ```
 
 * Observações:
     *   O pacote `postgresql-contrib` só é necessário para a instalação do DSpace 6, pois fornece o módulo `pgcrypto`.
-    *   Caso o pacote `npm` não esteja disponível, instalar o pacote `nodejs` disponibilizado por: [nodejs](https://nodejs.org/en/)
+    *   Caso os pacotes `nodejs` ou `npm` não estejam disponíveis, adicionar o [repositório oficial](https://github.com/nodesource/distributions/blob/master/README.md) do [Node.js](https://nodejs.org/en/) com o seguinte comando. Depois reexecute os comandos acima.
+        ```bash
+        $ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+        ```
+        
     *   A versão 8.0.32 do `tomcat` possui um bug ([DS-3242](https://jira.duraspace.org/browse/DS-3142)) que causa erros na execução do DSpace 6. Caso o sistema só disponibilize essa versão é recomendado usar o pacote `tomcat7`. Para verificar a versão do pacote `tomcat8`, utilize o comando `$ apt show tomcat8`.
 
 ## Criação do usuário do sistema

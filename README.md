@@ -82,6 +82,7 @@ No usuário `dspace`:
 
     - Caso queira usar uma versão específica:
         ```bash
+        $ cd DSpace
         $ git checkout dspace-6.3
         ```
 
@@ -104,7 +105,7 @@ No usuário `dspace`:
 
     * Diretório onde o DSpace será instalado:
         ```bash
-        dspace.install.dir = [DIR_INSTALACAO]
+        dspace.dir = [DIR_INSTALACAO]
         ```
 
     * Informações sobre o banco de dados:
@@ -165,18 +166,18 @@ No usuário `dspace`:
 * Configurar o Tomcat8 para ser executado no usuário `dspace` para evitar problemas de conflito de permissões dos arquivos entre o usuário `tomcat8` e `dspace`. Para isso, altere os seguintes parâmetros no arquivo `/etc/default/tomcat8`.
     ```text
     TOMCAT8_USER=dspace
-    TOMCAT8_GROUP=dspace
+    ```
+* Adcionar o usuário `dspace` ao grupo `tomcat8`, executando o seguinte comando:
+    ```bash
+    $ sudo usermod -a -G tomcat8 dspace
     ```
 
 * Alterar a permissão dos diretórios de trabalho do Tomcat8, executando os seguintes comandos como `root`:
     ```bash
-    $ sudo service tomcat8 stop
-    $ sudo chown -R dspace:dspace /var/log/tomcat8
-    $ sudo chown -R dspace:dspace /var/cache/tomcat8
-    $ sudo chown -R dspace:dspace /var/lib/tomcat8/webapps
-    $ sudo chown -R root:dspace /var/lib/tomcat8/conf
-    $ sudo chown -R root:dspace /usr/share/tomcat8
-    $ sudo service tomcat8 start
+    $ systemctl stop tomcat8.service
+    $ chown -R dspace /var/log/tomcat8
+    $ chown -R dspace /var/cache/tomcat8
+    $ systemctl start tomcat8.service
     ```
 
 * Configuração do diretório base dos webapps utilizados pelo Tomcat8:

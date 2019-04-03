@@ -21,6 +21,8 @@ $ sudo apt-get install tomcat8 openjdk-8-jdk-headless postgresql postgresql-cont
         ```
         
     *   A versão 8.0.32 do `tomcat` possui um bug ([DS-3242](https://jira.duraspace.org/browse/DS-3142)) que causa erros na execução do DSpace 6. Caso o sistema só disponibilize essa versão é recomendado usar o pacote `tomcat7`. Para verificar a versão do pacote `tomcat8`, utilize o comando `$ apt show tomcat8`.
+    
+    *   A versão 8.5.30 do `tomcat` possui um bug ([DS-4160](https://jira.duraspace.org/browse/DS-4160)) que impossibilita a execução do aplicativo REST do DSpace 6. Caso o sistema só disponibilize essa versão é recomendado usar o pacote `tomcat7`. Para verificar a versão do pacote `tomcat8`, utilize o comando `$ apt show tomcat8`.
 
 ## Criação do usuário do sistema
 

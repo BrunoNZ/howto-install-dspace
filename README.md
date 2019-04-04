@@ -53,7 +53,7 @@ A  opção `-u 999` serve para não permitir o login desse usuário na tela de l
 
 * Para executar os comandos a seguir é necessário a senha do usuário `postgres`. Caso não saiba qual é a senha, execute os comandos abaixo para reconfigurar a senha.
     ```bash
-    $ sudo service postgresql start
+    $ sudo systemctl start postgresql
     $ sudo su - postgres
     $ psql -c "ALTER USER postgres WITH PASSWORD '[SENHA]' ;"
     ```

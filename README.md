@@ -15,9 +15,10 @@ $ sudo apt-get install tomcat8 openjdk-8-jdk-headless postgresql postgresql-cont
 
 * Observações:
     *   O pacote `postgresql-contrib` só é necessário para a instalação do DSpace 6, pois fornece o módulo `pgcrypto`.
-    *   Caso os pacotes `nodejs` não estejam disponíveis, adicionar o [repositório oficial](https://github.com/nodesource/distributions/blob/master/README.md) do [Node.js](https://nodejs.org/en/) com o seguinte comando. Depois reexecute os comandos acima.
+    *   Caso o comando `npm` não esteja disponível, adicionar o [repositório oficial](https://github.com/nodesource/distributions/blob/master/README.md) do [Node.js](https://nodejs.org/en/) e atualizar o pacote `nodejs` com os seguintes comandos. Depois reexecute os comandos acima.
         ```bash
         $ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+        $ apt update && apt upgrade
         ```
         
     *   A versão 8.0.32 do `tomcat` possui um bug ([DS-3242](https://jira.duraspace.org/browse/DS-3142)) que causa erros na execução do DSpace 6. Caso o sistema só disponibilize essa versão é recomendado usar o pacote `tomcat7`. Para verificar a versão do pacote `tomcat8`, utilize o comando `$ apt show tomcat8`.

@@ -1,3 +1,9 @@
+> Autor: Bruno Nocera Zanette
+
+> Link: https://gitlab.c3sl.ufpr.br/bnzanette/howto-install-dspace
+
+> Baseado em: https://wiki.duraspace.org/display/DSDOC/All+Documentation
+
 # Como instalar e configurar o sistema DSpace
 
 ## Instalação das dependências

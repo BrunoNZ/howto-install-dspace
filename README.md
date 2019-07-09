@@ -9,7 +9,7 @@
 ## Instalação das dependências
 
 ```bash
-$ sudo apt-get install tomcat8 openjdk-8-jdk-headless postgresql postgresql-contrib maven ant git vim
+$ sudo apt-get install --no-install-recommends tomcat8 openjdk-8-jdk-headless postgresql postgresql-contrib maven ant git vim
 ```
 
 * Caso queira usar o tema Mirage2, é necessário instalar mais alguns pacotes:
@@ -314,6 +314,23 @@ No usuário `dspace`:
     $ mvn package -pl dspace-rest -am -T 4 && (cd dspace/target/dspace-installer/ && ant update)
     ```
 
+# Como acessar o SOLR via túnel SSH
+
+
+* Para acessar a interface gráfica do SOLR em um servidor externo deve ser usado um túnel SSH.
+
+    * Criar um túnel SSH com o comando:
+        ```bash
+        $ ssh -L 8585:localhost:8080 USER@SERVIDOR
+        ```
+        
+    * Acessar a interface gráfica do SOLR usando a porta 8585: [http://localhost:8585/solr](http://localhost:8585/solr)
+    
+    Obs.: A porta `8585` é só um exemplo. Outras portas podem ser usadas.
+                    
+    Obs.2: O comando deve ser executado na máquina local e deve permanecer em execução até o fim do processo.
+
+
 # Como migrar o conteúdo de um instância do DSpace para outra
 
 * Fazer a migração do banco de dados:
@@ -366,17 +383,10 @@ No usuário `dspace`:
             
             * Método 2: Utilizando os comandos de importação/exportação (via interface gráfica):
 
-                * Caso a instalação não esteja sendo feita na máquina local deve ser usado um túnel SSH para acessar a interface gráfica do SOLR.
+                * Caso a instalação não esteja sendo feita na máquina local deve ser usado um túnel SSH para acessar a interface gráfica do SOLR:
+                    [Como acessar o SOLR via túnel SSH](#como-acessar-o-solr-via-túnel-ssh)
                 
-                    Obs.: A porta `8585` é só um exemplo. Outras portas podem ser usadas.
-                    
-                    Obs.2: O comando deve ser executado na máquina local e deve permanecer em execução até o fim do processo.
-
-                    ```bash
-                    $ ssh -L 8585:localhost:8080 USER@SERVIDOR
-                    ```
-
-                * Utilizar um navegador para acessar a interface gráfica do SOLR no endereço `localhost:8080/solr` ou, caso a instalação não não esteja sendo feita na máquina local, `localhost:8585/solr`.
+                * Utilizar um navegador para acessar a interface gráfica do SOLR no endereço `localhost:8080/solr` ou, caso a instalação não não esteja sendo feita na máquina local, `localhost:<PORTA>/solr`.
                 
                 * Clicar em `Core Admin`, no menu lateral e depois em `Add Core`, no menu superior.
                 

@@ -1,6 +1,6 @@
 > Autor: Bruno Nocera Zanette
 
-> Link: https://gitlab.c3sl.ufpr.br/bnzanette/howto-install-dspace
+> Link: https://github.com/BrunoNZ/howto-install-dspace
 
 > Baseado em: https://wiki.duraspace.org/display/DSDOC/All+Documentation
 
@@ -23,9 +23,11 @@ $ sudo apt-get install --no-install-recommends tomcat8 openjdk-8-jdk-headless po
     *   O pacote `postgresql-contrib` só é necessário para a instalação do DSpace 6, pois fornece o módulo `pgcrypto`.
     *   Caso o comando `npm` não esteja disponível, adicionar o [repositório oficial](https://github.com/nodesource/distributions/blob/master/README.md) do [Node.js](https://nodejs.org/en/) e atualizar o pacote `nodejs` com os seguintes comandos. Depois reexecute os comandos acima.
         ```bash
-        $ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+        $ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
         $ apt update && apt upgrade
         ```
+        
+        * Obs.: Caso o comando `sudo` não exista, basta remover o `sudo -E ` do comando.
         
     *   A versão 8.0.32 do `tomcat` possui um bug ([DS-3242](https://jira.duraspace.org/browse/DS-3142)) que causa erros na execução do DSpace 6. Caso o sistema só disponibilize essa versão é recomendado usar o pacote `tomcat7`. Para verificar a versão do pacote `tomcat8`, utilize o comando `$ apt show tomcat8`.
     
@@ -89,7 +91,7 @@ No usuário `dspace`:
 
 * **Opção 1)** Utilizando o Git:
     ```bash
-    $ git clone https://github.com/DSpace/DSpace.git
+    $ git clone https://github.com/DSpace/DSpace.git --branch dspace-6_x
     ```
 
     - Caso queira usar uma versão específica:
@@ -164,6 +166,11 @@ No usuário `dspace`:
     $ cd [DIR_SRC]/dspace/target/dspace-installer
     $ ant fresh_install
     ```
+    * Obs.: Caso a instalação falhe com o erro `Directory /dspace/bin creation was not successful for an unknown reason`, verifique se o usuário `dspace` é dono do diretório [DIR_INSTALACAO], ou tenha permissão de escrita. Por exemplo, caso [DIR_INSTALACAO] seja `/dspace`:
+        ```bash
+        $ sudo mkdir /dspace
+        $ chown -R dspace:dspace /dspace
+        ```
 
 * Para atualizar o sistema, execute novamente o comando para compilar o sistema e depois, no lugar da opção `fresh_install` utilizada no passo de instalação, utilize a opção `update`. Isso irá atualizar os webapps, configurações do diretório [DIR_INSTALACAO] e fazer as migrações do banco de dados, e não irá alterar nada do que está armazenado no sistema.
     ```bash
@@ -210,6 +217,12 @@ No usuário `dspace`:
         ```
 
         * Obs.: Esse mesmo comando pode ser usado para atualizar os webapps após uma atualização do DSpace, sem que seja necessário deletar e copiar novamente todos os webapps.
+        * Obs.2: Pode ser que seja necessário mudar as permissões do diretório `/var/lib/tomcat8` para que esse método funcione, pois o usuário `dspace` não tem permissão de escrita nesse diretório:
+            ```bash
+            $ systemctl stop tomcat8.service
+            $ chown -R dspace /var/lib/tomcat8
+            $ systemctl start tomcat8.service
+            ```
 
 * Configurar o tomcat para usar criptografia SSL/HTTPS
 

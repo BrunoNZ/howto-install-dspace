@@ -23,6 +23,7 @@ $ sudo apt-get install --no-install-recommends tomcat8 openjdk-8-jdk-headless po
     *   O pacote `postgresql-contrib` só é necessário para a instalação do DSpace 6, pois fornece o módulo `pgcrypto`.
     *   Caso o comando `npm` não esteja disponível, adicionar o [repositório oficial](https://github.com/nodesource/distributions/blob/master/README.md) do [Node.js](https://nodejs.org/en/) e atualizar o pacote `nodejs` com os seguintes comandos. Depois reexecute os comandos acima.
         ```bash
+        $ apt install curl
         $ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
         $ apt update && apt upgrade
         ```

@@ -9,26 +9,29 @@
 ## Instalação das dependências
 
 ```bash
-$ sudo apt-get install --no-install-recommends tomcat8 openjdk-8-jdk-headless postgresql postgresql-contrib maven ant git vim
+root$ apt-get install --no-install-recommends tomcat8 openjdk-8-jdk-headless postgresql postgresql-contrib maven ant git vim
 ```
 
 * Caso queira usar o tema Mirage2, é necessário instalar mais alguns pacotes:
     ```bash
-    $ apt-get install nodejs coffeescript ruby-compass
-    $ npm install --no-check-certificate -g bower
-    $ npm install --no-check-certificate -g grunt-cli
+    root# apt-get install nodejs coffeescript ruby-compass
+    root# npm install --no-check-certificate -g bower
+    root# npm install --no-check-certificate -g grunt-cli
     ```
 
 * Observações:
     *   O pacote `postgresql-contrib` só é necessário para a instalação do DSpace 6, pois fornece o módulo `pgcrypto`.
     *   Caso o comando `npm` não esteja disponível, adicionar o [repositório oficial](https://github.com/nodesource/distributions/blob/master/README.md) do [Node.js](https://nodejs.org/en/) e atualizar o pacote `nodejs` com os seguintes comandos. Depois reexecute os comandos acima.
         ```bash
-        $ apt install curl
-        $ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-        $ apt update && apt upgrade
+        root# apt-get install curl
+        root# curl -sL https://deb.nodesource.com/setup_12.x | bash -
+        root# apt-get update && apt-get upgrade
         ```
         
-        * Obs.: Caso o comando `sudo` não exista, basta remover o `sudo -E ` do comando.
+        * Obs.: Caso o comando não for executado pelo usuário `root`, adicione o comando `sudo -E ` antes do comando `bash`.
+        ```bash
+        $ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+        ```
         
     *   A versão 8.0.32 do `tomcat` possui um bug ([DS-3242](https://jira.duraspace.org/browse/DS-3142)) que causa erros na execução do DSpace 6. Caso o sistema só disponibilize essa versão é recomendado usar o pacote `tomcat7`. Para verificar a versão do pacote `tomcat8`, utilize o comando `$ apt show tomcat8`.
     
@@ -43,12 +46,12 @@ Caso deseje usar um usuário já existente, utilize esse usuário quando o usuá
 * Para criar esse novo usuário, utilize o comando:
 A  opção `-u 999` serve para não permitir o login desse usuário na tela de login, forçando o uso de um UID menor que 1000.
     ```bash
-    $ adduser dspace -u 999
+    root# adduser dspace -u 999
     ```
 
 * Para logar no usuário recém criado, utilize:
     ```bash
-    $ sudo su - dspace
+    root# su - dspace
     ```
 
 * Caso seja necessário voltar para o usuário root, utilize:
@@ -62,8 +65,8 @@ A  opção `-u 999` serve para não permitir o login desse usuário na tela de l
 
 * Para executar os comandos a seguir é necessário a senha do usuário `postgres`. Caso não saiba qual é a senha, execute os comandos abaixo para reconfigurar a senha.
     ```bash
-    $ sudo systemctl start postgresql
-    $ sudo su - postgres
+    root# systemctl start postgresql
+    root# su - postgres
     $ psql -c "ALTER USER postgres WITH PASSWORD '[SENHA]' ;"
     ```
 
@@ -169,8 +172,8 @@ No usuário `dspace`:
     ```
     * Obs.: Caso a instalação falhe com o erro `Directory /dspace/bin creation was not successful for an unknown reason`, verifique se o usuário `dspace` é dono do diretório [DIR_INSTALACAO], ou tenha permissão de escrita. Por exemplo, caso [DIR_INSTALACAO] seja `/dspace`:
         ```bash
-        $ sudo mkdir /dspace
-        $ chown -R dspace:dspace /dspace
+        root# mkdir /dspace
+        root# chown -R dspace:dspace /dspace
         ```
 
 * Para atualizar o sistema, execute novamente o comando para compilar o sistema e depois, no lugar da opção `fresh_install` utilizada no passo de instalação, utilize a opção `update`. Isso irá atualizar os webapps, configurações do diretório [DIR_INSTALACAO] e fazer as migrações do banco de dados, e não irá alterar nada do que está armazenado no sistema.
@@ -189,15 +192,15 @@ No usuário `dspace`:
     ```
 * Adcionar o usuário `dspace` ao grupo `tomcat8`, executando o seguinte comando:
     ```bash
-    $ sudo usermod –a –G tomcat8 dspace adduser
+    root# usermod -a -G tomcat8 dspace adduser
     ```
 
 * Alterar a permissão dos diretórios de trabalho do Tomcat8, executando os seguintes comandos como `root`:
     ```bash
-    $ systemctl stop tomcat8.service
-    $ chown -R dspace /var/log/tomcat8
-    $ chown -R dspace /var/cache/tomcat8
-    $ systemctl start tomcat8.service
+    root# systemctl stop tomcat8.service
+    root# chown -R dspace /var/log/tomcat8
+    root# chown -R dspace /var/cache/tomcat8
+    root# systemctl start tomcat8.service
     ```
 
 * Configuração do diretório base dos webapps utilizados pelo Tomcat8:
@@ -220,9 +223,9 @@ No usuário `dspace`:
         * Obs.: Esse mesmo comando pode ser usado para atualizar os webapps após uma atualização do DSpace, sem que seja necessário deletar e copiar novamente todos os webapps.
         * Obs.2: Pode ser que seja necessário mudar as permissões do diretório `/var/lib/tomcat8` para que esse método funcione, pois o usuário `dspace` não tem permissão de escrita nesse diretório:
             ```bash
-            $ systemctl stop tomcat8.service
-            $ chown -R dspace /var/lib/tomcat8
-            $ systemctl start tomcat8.service
+            root# systemctl stop tomcat8.service
+            root# chown -R dspace /var/lib/tomcat8
+            root# systemctl start tomcat8.service
             ```
 
 * Configurar o tomcat para usar criptografia SSL/HTTPS

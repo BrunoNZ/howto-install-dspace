@@ -189,10 +189,11 @@ No usuário `dspace`:
 * Configurar o Tomcat8 para ser executado no usuário `dspace` para evitar problemas de conflito de permissões dos arquivos entre o usuário `tomcat8` e `dspace`. Para isso, altere os seguintes parâmetros no arquivo `/etc/default/tomcat8`.
     ```text
     TOMCAT8_USER=dspace
+    TOMCAT8_GROUP=dspace
     ```
 * Adcionar o usuário `dspace` ao grupo `tomcat8`, executando o seguinte comando:
     ```bash
-    root# usermod -a -G tomcat8 dspace adduser
+    root# usermod -a -G tomcat8 dspace
     ```
 
 * Alterar a permissão dos diretórios de trabalho do Tomcat8, executando os seguintes comandos como `root`:
@@ -200,6 +201,8 @@ No usuário `dspace`:
     root# systemctl stop tomcat8.service
     root# chown -R dspace /var/log/tomcat8
     root# chown -R dspace /var/cache/tomcat8
+    root# chown -R dspace /var/lib/tomcat8/lib
+    root# chown -R dspace /var/lib/tomcat8/webapps
     root# systemctl start tomcat8.service
     ```
 

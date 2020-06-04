@@ -189,7 +189,7 @@ No usuário `dspace`:
     ```
 * Adcionar o usuário `dspace` ao grupo `tomcat8`, executando o seguinte comando:
     ```bash
-    $ sudo adduser dspace tomcat8
+    $ sudo usermod –a –G tomcat8 dspace adduser
     ```
 
 * Alterar a permissão dos diretórios de trabalho do Tomcat8, executando os seguintes comandos como `root`:

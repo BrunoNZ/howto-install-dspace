@@ -9,7 +9,7 @@
 ## Instalação das dependências
 
 ```bash
-root$ apt-get install --no-install-recommends tomcat8 openjdk-8-jdk-headless postgresql postgresql-contrib maven ant git vim
+root# apt-get install --no-install-recommends tomcat8 openjdk-8-jdk-headless postgresql postgresql-contrib maven ant git vim
 ```
 
 * Caso queira usar o tema Mirage2, é necessário instalar mais alguns pacotes:
@@ -191,9 +191,14 @@ No usuário `dspace`:
     TOMCAT8_USER=dspace
     TOMCAT8_GROUP=dspace
     ```
-* Adcionar o usuário `dspace` ao grupo `tomcat8`, executando o seguinte comando:
+* Adicionar o usuário `dspace` ao grupo `tomcat8`, executando o seguinte comando:
     ```bash
     root# usermod -a -G tomcat8 dspace
+    ```
+    
+* Em algumas versões do Tomcat8, o script de inicialização modifica automaticamente o diretório `HOME` do usuário configurado em `TOMCAT8_USER` para `/var/lib/tomcat8`. Para desabilitar isso, comente a seguinte linha no arquivo `/etc/init.d/tomcat8`:
+    ```bash
+    usermod --home /var/lib/tomcat8 $TOMCAT8_USER > /dev/null 2>&1 || true
     ```
 
 * Alterar a permissão dos diretórios de trabalho do Tomcat8, executando os seguintes comandos como `root`:

@@ -29,9 +29,9 @@ root$ apt-get install --no-install-recommends tomcat8 openjdk-8-jdk-headless pos
         ```
         
         * Obs.: Caso o comando não for executado pelo usuário `root`, adicione o comando `sudo -E ` antes do comando `bash`.
-        ```bash
-        $ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-        ```
+            ```bash
+            $ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+            ```
         
     *   A versão 8.0.32 do `tomcat` possui um bug ([DS-3242](https://jira.duraspace.org/browse/DS-3142)) que causa erros na execução do DSpace 6. Caso o sistema só disponibilize essa versão é recomendado usar o pacote `tomcat7`. Para verificar a versão do pacote `tomcat8`, utilize o comando `$ apt show tomcat8`.
     
@@ -276,10 +276,10 @@ No usuário `dspace`:
 
 ## Criação do usuário administrador e Teste do sistema
 
-* Para criar o usuário administrador, no usuário "dspace", execute os comandos:
+* Para criar o usuário administrador, no usuário `dspace`, execute os comandos:
     ```bash
-    $ cd [DIR_INSTALACAO]
-    $ ./bin/dspace create-administrator
+    dspace$ cd [DIR_INSTALACAO]
+    dspace$ ./bin/dspace create-administrator
     ```
 
 * Para testar o sistema, abra o navegador e acesse os links:
